@@ -1,28 +1,103 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app dark>
+
+    <Navigate/>
+
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetify</span>
+        <span class="font-weight-light"> MATERIAL DESIGN</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <Dashboard/>
+    </v-content>
+
+    <v-content>
+      <canvas id="planet-chart"></canvas>
+    </v-content>
+
+    <v-content>
+      <CommitChart/>
+    </v-content>
+
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld  from './components/HelloWorld'
+import Dashboard   from './components/Dashboard'
+import Navigate    from './components/Navigate'
+import planetChartData from './chart-data.js'
+import Chart       from 'chart.js'
+import CommitChart from './components/CommitChart'
+import axios from 'axios';
+
+
+
 
 export default {
-  name: 'app',
+  name: 'App',
+
   components: {
-    HelloWorld
+    HelloWorld,
+    Dashboard,
+    Navigate,
+    CommitChart
+  },
+  data() {
+      return {
+          planetChartData: planetChartData,
+          jokes: [],
+          loading: false,
+      }
+  },
+  methods: {
+      createChart(chartId, chartData) {
+          const ctx = document.getElementById(chartId);
+          const myChart = new Chart(ctx, {
+              type: chartData.type,
+              data: chartData.data,
+              options: chartData.options,
+          });
+      },
+      getJokes: function () {
+          this.loading = true;
+          // axios.get("http://localhost:8092/GetEDSWebData/21")
+          let url="http://localhost:8092/GetEDSWebData/21";
+          axios.get(url, {
+              method: 'GET',
+              mode: 'no-cors',
+              headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
+              }})
+              .then((response)  =>  {
+                  this.loading = false;
+                  this.jokes = response;
+                  console.log(response)
+              },
+                  (error)  =>  {
+                  this.loading = false;
+              })
+      }
+  },
+  mounted() {
+      this.createChart('planet-chart', this.planetChartData);
+      this.getJokes();
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
