@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import Chart       from 'chart.js'
+    import Chart             from 'chart.js'
 
     export default {
         name: "CommitCharts",
@@ -29,8 +29,6 @@
 
         mounted () {
             this.createChart2('commit-chart')
-
-
         }
     }
 </script>

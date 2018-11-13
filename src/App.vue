@@ -44,9 +44,7 @@ import Navigate    from './components/Navigate'
 import planetChartData from './chart-data.js'
 import Chart       from 'chart.js'
 import CommitChart from './components/CommitChart'
-import axios from 'axios';
-
-
+// import axios       from 'axios'
 
 
 export default {
@@ -61,8 +59,6 @@ export default {
   data() {
       return {
           planetChartData: planetChartData,
-          jokes: [],
-          loading: false,
       }
   },
   methods: {
@@ -74,30 +70,40 @@ export default {
               options: chartData.options,
           });
       },
-      getJokes: function () {
-          this.loading = true;
-          // axios.get("http://localhost:8092/GetEDSWebData/21")
-          let url="http://localhost:8092/GetEDSWebData/21";
-          axios.get(url, {
-              method: 'GET',
-              mode: 'no-cors',
-              headers: {
-                  'Access-Control-Allow-Origin': '*',
-                  'Content-Type': 'application/json',
-              }})
-              .then((response)  =>  {
-                  this.loading = false;
-                  this.jokes = response;
-                  console.log(response)
-              },
-                  (error)  =>  {
-                  this.loading = false;
-              })
-      }
   },
   mounted() {
       this.createChart('planet-chart', this.planetChartData);
-      this.getJokes();
   }
 }
+
+
+// const getBreeds = () => {
+//     try {
+//         // return axios.get('https://dog.ceo/api/breeds/list/all')
+//         return axios.get('http://localhost:8092/GetEDSWebData/20')
+//     } catch (error) {
+//         console.error(error)
+//     }
+// };
+//
+// const countBreeds = async () => {
+//     const breeds = getBreeds()
+//         .then(response => {
+//             if (response.data) {
+//                 console.log(
+//                     `Got ${Object.entries(response.data).length} breeds`
+//                 );
+//                 console.log(response.data);
+//             }
+//             else {
+//                 console.log("hfhdjfhjfh")
+//             }
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// }
+//
+// countBreeds()
+
 </script>

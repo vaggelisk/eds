@@ -39,10 +39,10 @@
                 items: [
                     { title: 'Dashboard', icon: 'home' },
                     { title: 'Engine Performance', icon: 'show_chart' },
-                    { title: 'Engine Performance', icon: 'multiline_chart' },
-                    { title: 'Engine Performance', icon: 'build' },
-                    { title: 'Engine Performance', icon: 'calendar_today' },
-                    { title: 'Engine Performance', icon: 'settings' },
+                    { title: 'Components Diagnostics', icon: 'multiline_chart' },
+                    { title: 'Troubleshooting', icon: 'build' },
+                    { title: 'Maintenance', icon: 'calendar_today' },
+                    { title: 'Spare Parts', icon: 'settings' },
                 ],
                 right: null
             }

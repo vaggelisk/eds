@@ -1,22 +1,3 @@
-import Vue from "vue";
-import VueAxios from "vue-axios";
-import axios from "axios";
-
-Vue.use(VueAxios, axios);
-// Vue.use(cors());
-
-
-const url = "http://localhost:8092/GetEDSWebData/21";
-
-
-
-// axios.get(url)
-//     .then((response) => {
-//     console.log(response)
-// });
-
-console.log("hsjdhfhdh");
-
 export const planetChartData = {
     type: 'line',
     data: {
@@ -72,6 +53,6 @@ export const planetChartData = {
             }]
         }
     }
-}
+};
 
 export default planetChartData;
