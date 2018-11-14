@@ -2,7 +2,6 @@ import axios   from 'axios';
 
 
 export default {
-    // console.log("katw apo to export")
     data: {
         labels: ['State',],
         datasets: [

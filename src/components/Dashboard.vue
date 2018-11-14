@@ -11,24 +11,31 @@
                 <v-layout row wrap>
 
                     <v-flex d-flex>
-                        <v-card color="indigo" dark>
+                        <v-card  dark>
                             <v-card-title primary class="title">Performance Parameters</v-card-title>
-                            <v-card-text>{{ lorem.slice(0, 70) }}</v-card-text>
+                            <v-responsive contain>
+                                <PerformanceBar />
+                            </v-responsive>
                         </v-card>
                     </v-flex>
 
                 </v-layout>
             </v-flex>
             <v-flex d-flex xs12 sm6 md2 child-flex>
-                <v-card color="green lighten-2" dark>
+                <v-card dark>
                     <v-card-title primary class="title">Engine KPI</v-card-title>
-                    <v-card-text>{{ lorem.slice(0, 90) }}</v-card-text>
+                    <v-responsive contain>
+                        <EngineDoughnut />
+                    </v-responsive>
                 </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm6 md2>
-                <v-card color="blue lighten-2" dark>
+                <v-card dark>
                     <v-card-title primary class="title">Compression Pressure</v-card-title>
-                    <v-card-text>{{ lorem.slice(0, 100) }}</v-card-text>
+                        <v-responsive contain>
+                            <CompressionDots />
+                        </v-responsive>
+
                 </v-card>
             </v-flex>
         </v-layout>
@@ -92,18 +99,39 @@
 </template>
 
 <script>
-    import CommitChart from './CommitChart'
-    import DoughnutChart from './dashboard/charts/DoughnutChart'
+    import axios           from 'axios'
+    import CommitChart     from './CommitChart'
+    import DoughnutChart   from './dashboard/charts/DoughnutChart'
+    import PerformanceBar  from './dashboard/charts/PerformanceBar'
+    import EngineDoughnut  from './dashboard/charts/EngineDoughnut'
+    import CompressionDots from './dashboard/charts/CompressionDots'
 
     export default {
         name: "Dashboard",
         components: {
             CommitChart,
             DoughnutChart,
+            PerformanceBar,
+            EngineDoughnut,
+            CompressionDots,
         },
-        data: () => ({
-            lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-        })
+        props: {
+            loremq : "vaggelis",
+        },
+        data: function () {
+            return {
+                lorem: `Lorem ipsum dolor l at clita quando. Te sit `
+            }
+        },
+        mounted() {
+            axios
+                .get('http://localhost:8092/GetEDSWebData/20')
+                .then((response) => {
+                    // eslint-disable-next-line
+                    console.log(response.data);
+                    this.compressionPressureData.percent = response.data.Card.Value.toFixed(2);
+                })
+        }
     }
 </script>
 
