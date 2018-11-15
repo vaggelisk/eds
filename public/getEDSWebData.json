@@ -1,0 +1,17 @@
+{
+  "EngineKPI":
+    {"Value":97,"Color":0},
+  "BarChart":[
+    {"Value":-0.58579330013211051,"Name":"Pcomp","Color":0},
+    {"Value":1.0590778217313015,"Name":"Pmax","Color":0},
+    {"Value":-1.0695222560731954,"Name":"T/C speed","Color":0},
+    {"Value":1.425994625071692,"Name":"Ind. Power","Color":0},
+    {"Value":-4.5130106073683587,"Name":"T turb In","Color":0}
+  ],
+  "Card":{
+    "Title":"Compression Pressure",
+    "Unit":"bar",
+    "Value":95.949666666666658,
+    "Ref":96.511733385499085,"Color":0,
+  },
+}

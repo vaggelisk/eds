@@ -32,8 +32,11 @@
             <v-flex d-flex xs12 sm6 md2>
                 <v-card dark>
                     <v-card-title primary class="title">Compression Pressure</v-card-title>
-                        <v-responsive contain>
-                            <CompressionDots />
+                    <!-- the above if is for loading data before make the card  -->
+                    <!-- otherwise make th card without data                    -->
+                        <v-responsive v-if="childDataLoaded" contain>
+                            <CompressionDots v-bind:childdata="childdata"
+                                             v-bind:compressionPressureData="compressionPressureData"   />
                         </v-responsive>
 
                 </v-card>
@@ -55,7 +58,7 @@
                 <v-card dark>
                     <v-card-title primary class="title">Engine State</v-card-title>
                     <v-responsive contain>
-                        <CommitChart/>
+                        <CommitChart  />
                     </v-responsive>
                 </v-card>
             </v-flex>
@@ -115,21 +118,33 @@
             EngineDoughnut,
             CompressionDots,
         },
-        props: {
-            loremq : "vaggelis",
-        },
         data: function () {
             return {
-                lorem: `Lorem ipsum dolor l at clita quando. Te sit `
+                childDataLoaded: false,
+                childdata : [],
+                compressionPressureData: {},
+                lorem: `Lorem ipsum dolor l at clita quando. Te sit `,
+                // messages: []
+                // compressionPressureData: {Value: Number, Unit: "dff", reference: 43},
             }
         },
         mounted() {
             axios
                 .get('http://localhost:8092/GetEDSWebData/20')
                 .then((response) => {
+                    this.childdata.push(response.data.Card.Value);
+                    this.compressionPressureData = response.data.Card;
                     // eslint-disable-next-line
+                    console.log(this.childdata);
+                    // eslint-disable-next-line
+                    console.log(this.compressionPressureData);
+                    this.childDataLoaded = true;
                     console.log(response.data);
-                    this.compressionPressureData.percent = response.data.Card.Value.toFixed(2);
+                    // this.messages.push(response.data.Card.Value);
+                    // this.compressionPressureDataVag = response;
+                    // eslint-disable-next-line
+                    // console.log(this.compressionPressureData.Value);
+                    this.vag = response.data.Card.Value.toFixed(2).toString();
                 })
         }
     }
