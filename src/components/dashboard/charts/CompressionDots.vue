@@ -21,12 +21,7 @@
 
     export default {
         name: "CompressionDots",
-        props: ['childDataLoaded', 'compressionPressureData']
-            // compressionPressureData: {
-            //     type: Object,
-            // },
-
-        ,
+        props: ['childCompressionDataLoaded', 'compressionPressureData'],
         data: function () {
             return {
                 loading: true,
@@ -51,30 +46,9 @@
                 this.loading = false;
 
 
-                // eslint-disable-next-line
-                // console.log(this.compressionPressureDataC.Value)
-                // axios
-                //     .get('http://localhost:8092/GetEDSWebData/21')
-                //     .then((response) => {
-                //         this.compressionPressureData.percent = response.data.Card.Value.toFixed(2);
-                //         this.compressionPressureData.units = response.data.Card.Unit;
-                //         this.compressionPressureData.reference = response.data.reference;
-                //         // this.doughnutChartData = {
-                //         //     type: 'doughnut',
-                //         //     data: {
-                //         //         labels: ['State',],
-                //         //         datasets: [
-                //         //             {
-                //         //                 label: 'Compression Pressure',
-                //         //                 backgroundColor: ['blue',],
-                //         //                 data: [response.data.EngineKPI.Value,],
-                //         //             }
-                //         //         ]
-                //         //     }
-                //         // };
-                //         // this.createChart('doughnut-chart', this.doughnutChartData);
-                //         }
-                //     );
+
+                // this.createChart('doughnut-chart', this.doughnutChartData);
+
         }
     }
 </script>

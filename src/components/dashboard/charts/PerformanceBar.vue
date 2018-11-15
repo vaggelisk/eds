@@ -5,19 +5,26 @@
 <script>
     export default {
         name: "PerformanceBar",
+        props: ['childPerformanceDataLoaded', 'performanceData'],
+        data: function () {
+            return {
+                loading: true,
+                performanceDataC: this.performanceData,
+            }
+        },
         methods: {
             createChart2(chartId) {
+                // let data0 = this.performanceDataC.map( i => i.Value);
                 const ctx = document.getElementById(chartId);
                 const myChart2 = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['January', 'February', 'March', 'April', 'May', 'June',
-                            'July', 'August', 'September', 'October', 'November', 'December'],
+                        labels: this.performanceDataC.map( i => i.Name),
                         datasets: [
                             {
-                                label: 'GitHub Commits',
-                                backgroundColor: 'grey',
-                                data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                                label: '',
+                                backgroundColor: 'green',
+                                data : this.performanceDataC.map( i => i.Value)
                             }
                         ]
                     }
@@ -25,6 +32,7 @@
             }
         },
         mounted () {
+            this.loading = false;
             this.createChart2('performance-dashboard-chart')
         }
 

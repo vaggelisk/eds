@@ -13,8 +13,8 @@
                     <v-flex d-flex>
                         <v-card  dark>
                             <v-card-title primary class="title">Performance Parameters</v-card-title>
-                            <v-responsive contain>
-                                <PerformanceBar />
+                            <v-responsive v-if="childPerformanceDataLoaded"  contain>
+                                <PerformanceBar v-bind:performanceData="performanceData" />
                             </v-responsive>
                         </v-card>
                     </v-flex>
@@ -34,9 +34,8 @@
                     <v-card-title primary class="title">Compression Pressure</v-card-title>
                     <!-- the above if is for loading data before make the card  -->
                     <!-- otherwise make th card without data                    -->
-                        <v-responsive v-if="childDataLoaded" contain>
-                            <CompressionDots v-bind:childdata="childdata"
-                                             v-bind:compressionPressureData="compressionPressureData"   />
+                        <v-responsive v-if="childCompressionDataLoaded" contain>
+                            <CompressionDots v-bind:compressionPressureData="compressionPressureData"   />
                         </v-responsive>
 
                 </v-card>
@@ -120,31 +119,27 @@
         },
         data: function () {
             return {
-                childDataLoaded: false,
-                childdata : [],
+                childCompressionDataLoaded: false,
                 compressionPressureData: {},
+                childPerformanceDataLoaded: false,
+                performanceData: {},
                 lorem: `Lorem ipsum dolor l at clita quando. Te sit `,
-                // messages: []
-                // compressionPressureData: {Value: Number, Unit: "dff", reference: 43},
             }
         },
         mounted() {
             axios
                 .get('http://localhost:8092/GetEDSWebData/20')
                 .then((response) => {
-                    this.childdata.push(response.data.Card.Value);
+                    // this.childdata.push(response.data.Card.Value);
                     this.compressionPressureData = response.data.Card;
                     // eslint-disable-next-line
-                    console.log(this.childdata);
+                    console.log("jhdfjhj");
                     // eslint-disable-next-line
                     console.log(this.compressionPressureData);
-                    this.childDataLoaded = true;
+                    this.childCompressionDataLoaded = true;
+                    this.performanceData = response.data.BarChart;
+                    this.childPerformanceDataLoaded = true;
                     console.log(response.data);
-                    // this.messages.push(response.data.Card.Value);
-                    // this.compressionPressureDataVag = response;
-                    // eslint-disable-next-line
-                    // console.log(this.compressionPressureData.Value);
-                    this.vag = response.data.Card.Value.toFixed(2).toString();
                 })
         }
     }
